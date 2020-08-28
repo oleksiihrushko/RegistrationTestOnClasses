@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>RegistrationPage</title>
+</head>
+
+<body>
+  <button class="regBtn" type='button'>Регистрация</button>
+  <div class="modal">
+    <form class="modal__form">
+      <label>Логин
+        <input type="text" name="logIn" pattern="[a-zA-Z0-9]+" required>
+      </label>
+      <p class="modal__form--loginDescr invalid">5-10 символов</p>
+      <div class="modal__form--password">
+        <label>Пароль
+          <input class="togglePassword" type="password" name="password" required>
+        </label>
+        <a href="#" name="togglePassword" class="modal__form--password-control"></a>
+      </div>
+      <p class="modal__form--passDescr invalid">8-16 символов, минимум одна большая и одна маленькая буква и минимум
+        одна цифра</p>
+      <br />
+      <div class="modal__form--password">
+        <label>Повтор пароля
+          <input class="togglePasswordRepeat" type="password" name="passwordRepeat" required>
+        </label>
+        <a href="#" name="togglePasswordRepeat" class="modal__form--password-control"></a>
+      </div>
+      <p class="modal__form--secondPassDescr invalid">должен совпадать</p>
+      <button class="modal__form--okBtn" name="okBtn" type="submit">Ok</button>
+    </form>
+  </div>
+  <script src="./index.js" type="module"></script>
+</body>
+
+</html>

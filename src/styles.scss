@@ -1,0 +1,116 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: #000000;
+}
+
+header,
+footer {
+  background: #1e2939;
+}
+
+​img {
+  max-width: 100%;
+  display: block;
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+p {
+  margin: 0;
+  font-size: 10px;
+  margin-bottom: 10px;
+  width: 150px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}
+
+input:focus,
+input:active,
+button:active,
+button:focus {
+  outline: none;
+}
+
+.modal {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  top: 0;
+  left: 0;
+
+  &__form {
+    width: 162px;
+    height: 250px;
+    background-color: #fff;
+
+    &--password {
+      position: relative;
+    }
+
+    &--password-control {
+      position: absolute;
+      top: 17px;
+      left: 135px;
+      display: inline-block;
+      width: 25px;
+      height: 20px;
+      background: url(./icons/iconmonstr-eye-10.svg) 0 0 no-repeat;
+
+      &.view {
+        background: url(./icons/iconmonstr-eye-9.svg) 0 0 no-repeat;
+      }
+    }
+  }
+}
+
+.is-open {
+  display: flex;
+}
+
+.valid {
+  color: green;
+}
+
+.invalid {
+  color: red;
+}
