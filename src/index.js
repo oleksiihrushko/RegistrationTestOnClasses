@@ -1,5 +1,4 @@
 import './styles.scss';
-import { validation, unvalidation } from './validators';
 
 const regBtn = document.querySelector('.regBtn');
 const modal = document.querySelector('.modal');
