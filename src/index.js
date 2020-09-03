@@ -21,75 +21,74 @@ class Form {
     this.togglePassBth = document.querySelectorAll(
       `${selector}--password-control`,
     );
+    this.loginDescr = document.querySelector(`${selector}--loginDescr`);
+    this.passDescr = document.querySelector(`${selector}--passDescr`);
+    this.secondPassDescr = document.querySelector(
+      `${selector}--secondPassDescr`,
+    );
   }
 
+  checkLogin = value => {
+    if (value.match(/^[a-zA-Z][a-zA-Z0-9\.]{4,9}$/)) {
+      this.loginDescr.classList.remove('invalid');
+      this.loginDescr.classList.add('valid');
+    } else {
+      this.loginDescr.classList.remove('valid');
+      this.loginDescr.classList.add('invalid');
+    }
+  };
+
+  checkPass = value => {
+    if (value.match(/(?=.*\d)(?=.*[a-zа-я])(?=.*[A-Zа-я]).{8,}/)) {
+      this.passDescr.classList.remove('invalid');
+      this.passDescr.classList.add('valid');
+    } else {
+      this.passDescr.classList.remove('valid');
+      this.passDescr.classList.add('invalid');
+    }
+  };
+
+  checkSecondPass = (firstPass, secondPass) => {
+    if (firstPass === secondPass) {
+      this.secondPassDescr.classList.remove('invalid');
+      this.secondPassDescr.classList.add('valid');
+    } else {
+      this.secondPassDescr.classList.remove('valid');
+      this.secondPassDescr.classList.add('invalid');
+    }
+  };
+
+  checkOkBtn = () => {
+    if (
+      this.loginDescr.classList.contains('valid') &&
+      this.passDescr.classList.contains('valid') &&
+      this.secondPassDescr.classList.contains('valid')
+    ) {
+      this.okBtn.disabled = false;
+    } else {
+      this.okBtn.disabled = true;
+    }
+  };
+
   handleChange(e, h_selector) {
-    const form = document.querySelector(`${h_selector}`);
-    const passInput = form.elements.password;
-    const passwordRepeatInput = form.elements.passwordRepeat;
-    const okBtn = form.elements.okBtn;
-    const loginDescr = document.querySelector(`${h_selector}--loginDescr`);
-    const passDescr = document.querySelector(`${h_selector}--passDescr`);
-    const secondPassDescr = document.querySelector(
-      `${h_selector}--secondPassDescr`,
-    );
-    const checkLogin = value => {
-      if (value.match(/^[a-zA-Z][a-zA-Z0-9\.]{4,9}$/)) {
-        loginDescr.classList.remove('invalid');
-        loginDescr.classList.add('valid');
-      } else {
-        loginDescr.classList.remove('valid');
-        loginDescr.classList.add('invalid');
-      }
-    };
-
-    const checkPass = value => {
-      if (value.match(/(?=.*\d)(?=.*[a-zа-я])(?=.*[A-Zа-я]).{8,}/)) {
-        passDescr.classList.remove('invalid');
-        passDescr.classList.add('valid');
-      } else {
-        passDescr.classList.remove('valid');
-        passDescr.classList.add('invalid');
-      }
-    };
-
-    const checkSecondPass = (firstPass, secondPass) => {
-      if (firstPass === secondPass) {
-        secondPassDescr.classList.remove('invalid');
-        secondPassDescr.classList.add('valid');
-      } else {
-        secondPassDescr.classList.remove('valid');
-        secondPassDescr.classList.add('invalid');
-      }
-    };
-
-    const checkOkBtn = () => {
-      if (
-        loginDescr.classList.contains('valid') &&
-        passDescr.classList.contains('valid') &&
-        secondPassDescr.classList.contains('valid')
-      ) {
-        okBtn.disabled = false;
-      } else {
-        okBtn.disabled = true;
-      }
-    };
-
     switch (e.target.name) {
       case 'logIn':
-        checkLogin(e.target.value);
+        this.checkLogin(e.target.value);
         break;
       case 'password':
-        checkPass(e.target.value);
-        checkSecondPass(passwordRepeatInput.value, passInput.value);
+        this.checkPass(e.target.value);
+        this.checkSecondPass(
+          this.passwordRepeatInput.value,
+          this.passInput.value,
+        );
         break;
       case 'passwordRepeat':
-        checkSecondPass(e.target.value, passInput.value);
+        this.checkSecondPass(e.target.value, this.passInput.value);
         break;
       default:
         break;
     }
-    checkOkBtn();
+    this.checkOkBtn();
   }
 
   handleOk(e) {
@@ -111,14 +110,11 @@ class Form {
 
   addListeners() {
     this.okBtn.disabled = true;
-    this.logInInput.addEventListener('input', e =>
-      this.handleChange(e, this.selector),
-    );
-    this.passInput.addEventListener('input', e =>
-      this.handleChange(e, this.selector),
-    );
-    this.passwordRepeatInput.addEventListener('input', e =>
-      this.handleChange(e, this.selector),
+    this.logInInput.addEventListener('input', this.handleChange.bind(this));
+    this.passInput.addEventListener('input', this.handleChange.bind(this));
+    this.passwordRepeatInput.addEventListener(
+      'input',
+      this.handleChange.bind(this),
     );
     this.togglePassBth.forEach(btn =>
       btn.addEventListener('click', this.show_hide_password),
